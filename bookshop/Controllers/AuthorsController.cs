@@ -12,142 +12,96 @@ namespace bookshop.Controllers
 {
     public class AuthorsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public AuthorsController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _db;
+        public AuthorsController(ApplicationDbContext db)
         {
-            _context = context;
+            _db = db;
+        }
+        public IActionResult Index()
+        {
+            IEnumerable<Author> objList = _db.Author;
+            return View(objList);
         }
 
-        // GET: Authors
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Author.ToListAsync());
-        }
-
-        // GET: Authors/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var author = await _context.Author
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return View(author);
-        }
-
-        // GET: Authors/Create
+        // GET: /Authors/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Authors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST - CREATE 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] Author author)
+        [ValidateAntiForgeryToken] // security token 
+        public IActionResult Create(Author obj)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(author);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _db.Author.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(author);
+            return View(obj);
         }
 
-        // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: EDIT
+        public IActionResult Edit(int? id)
         {
-            if (id == null)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var author = await _context.Author.FindAsync(id);
-            if (author == null)
+            var obj = _db.Author.Find(id);
+            if (obj == null)
             {
                 return NotFound();
             }
-            return View(author);
+            return View(obj);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST - EDIT 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName")] Author author)
+        public IActionResult Edit(Author obj)
         {
-            if (id != author.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(author);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AuthorExists(author.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _db.Author.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(author);
+            return View(obj);
         }
 
-        // GET: Authors/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: DELETE
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            var author = await _context.Author
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
+            var obj = _db.Author.Find(id);
+            if (obj == null)
             {
                 return NotFound();
             }
-
-            return View(author);
+            return View(obj);
         }
 
-        // POST: Authors/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST - DELETE 
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeletePost(int? id)
         {
-            var author = await _context.Author.FindAsync(id);
-            _context.Author.Remove(author);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool AuthorExists(int id)
-        {
-            return _context.Author.Any(e => e.Id == id);
+            var obj = _db.Author.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Author.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

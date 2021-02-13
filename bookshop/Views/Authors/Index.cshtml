@@ -4,38 +4,61 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Author List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Authors" asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Author
+            </a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    <br /> <br />
+
+    @if (Model.Count() > 0)
+    {
+        <table id="myTable" class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Action</th>
+            </thead>
+
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="40%">@obj.FirstName </td>
+                        <td width="40%">@obj.LastName </td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Authors" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-success mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-controller="Authors" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No author exists...</p>
+    }
+
+</div>
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
 }
-    </tbody>
-</table>

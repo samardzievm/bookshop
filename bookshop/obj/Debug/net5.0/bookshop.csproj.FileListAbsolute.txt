@@ -167,12 +167,10 @@ C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\bin\Debug\net5.0\runtimes\w
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\bin\Debug\net5.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Authors\Create.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Authors\Delete.cshtml.g.cs
-C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Authors\Details.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Authors\Edit.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Authors\Index.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Genres\Create.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Genres\Delete.cshtml.g.cs
-C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Genres\Details.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Genres\Edit.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Genres\Index.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Books\Create.cshtml.g.cs

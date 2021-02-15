@@ -1,0 +1,160 @@
+﻿@model bookshop.Models.ViewModels.BookVM
+
+@{
+    var title = "Add Book";
+}
+
+<form method="POST" enctype="multipart/form-data">
+    @*enctype is dealing with the images*@
+
+    @if (Model.Book.Id != 0)@* the condition will detect if the action is create or edit *@
+    {
+        title = "Edit Book";
+        <input asp-for="Book.Id" hidden />
+    }
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Title"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.Title" class="form-control" />
+                        <span asp-validation-for="Book.Title" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Price"></label>
+
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Book.Price" class="form-control" />
+                        <span asp-validation-for="Book.Price" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.ShortDescription"></label>
+                    </div>
+                    @* make a modification here. Change Description to ShortDesc *@
+                    <div class="col-8">
+                        <input asp-for="Book.ShortDescription" class="form-control" />
+                        <span asp-validation-for="Book.ShortDescription" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.Description"></label>
+
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Book.Description" class="form-control summernote"> </textarea>
+                        <span asp-validation-for="Book.Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4"> Image </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.AuthorId"></label>
+
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Book.AuthorId" asp-items="@Model.AuthorSelectList" class="form-control">
+                            <option disabled selected>--Select Author--</option>
+                        </select>
+                        <span asp-validation-for="Book.AuthorId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Book.GenreId"></label>
+
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Book.GenreId" asp-items="@Model.GenreSelectList" class="form-control">
+                            <option disabled selected>--Select Genre--</option>
+                        </select>
+                        <span asp-validation-for="Book.GenreId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fas fa-arrow-circle-left"></i> Back
+                            </a>
+                        </div>
+
+                        <div class="col">
+                            @if (Model.Book.Id != 0)
+                            {
+                                // update
+                                <input type="submit" value="Update" class="btn btn-info w-100" />
+                            }
+                            else
+                            {
+                                // create
+                                <input type="submit" onclick="return ValidateInput()" value="Create" class="btn btn-primary w-100" />
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                @* display the image on the right side of the form *@
+                @if (Model.Book.Id != 0)@* only display if the image was uploaded, if not, do nothing*@
+                {
+                    <img src="@WC.ImagePath@Model.Book.Image" width="100%" style="border: 1px solid #bbb; border-radius:5px;" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@*client side validation*@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        // summernote activation
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
+

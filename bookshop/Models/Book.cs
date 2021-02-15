@@ -12,6 +12,8 @@ namespace bookshop.Models
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
+        [Display(Name ="Short Description")]
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
         [Display(Name = "Year Published")]
         public int YearPublished { get; set; }

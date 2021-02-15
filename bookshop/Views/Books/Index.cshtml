@@ -1,55 +1,71 @@
 ﻿@model IEnumerable<bookshop.Models.Book>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
-<h1>Index</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Book List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Upsert" class="btn btn-primary">
+                @*Upsert is combination of update and insert funcionality*@
+                <i class="fas fa-plus"></i> Add New Book
+            </a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
+    <br /> <br />
 
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <img src="@item.Image" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price) &euro;
-            </td>
+    @if (Model.Count() > 0)
+    {
+        <table id="myTable" class="table table-bordered table-striped" style="width: 100%">
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            <thead>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Action</th>
+            </thead>
+
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="30%">@obj.Title </td>
+                        <td width="10%">@obj.Price </td>
+                        <td width="20%">@obj.Author.FullName </td>
+                        <td width="20%">@obj.Genre.Name </td>
+
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-action="Upsert" asp-route-Id="@obj.Id" class="btn btn-success mx-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No book exists...</p>
+    }
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
 }
-    </tbody>
-</table>

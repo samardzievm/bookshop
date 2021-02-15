@@ -1,63 +1,104 @@
 ﻿@model bookshop.Models.Book
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Book";
 }
 
-<h1>Delete</h1>
+<form method="POST">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.YearPublished)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.YearPublished)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price) &euro;
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.Image" />
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author.FullName)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre.Name)
-        </dd class>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+    <input asp-for="Id" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Delete Book</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Title"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Title" class="form-control" disabled />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Price"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ShortDescription"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ShortDescription" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Description" class="form-control summernote" > </textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="AuthorId"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Author.FullName" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="GenreId"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Genre.Name" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fas fa-arrow-circle-left"></i> Back
+                            </a>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-danger w-100">Delete </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* display the image on the right side of the form *@
+                @if (Model.Id != 0)@* only display if the image was uploaded, if not, do nothing*@
+                {
+                    <img src="@WC.ImagePath@Model.Image" width="100%" style="border: 1px solid #bbb; border-radius:5px;" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@*client side validation*@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        // summernote disable
+        $(document).ready(function () {
+            $('.summernote').summernote('disable');
+        });
+    </script>
+}

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@*below code is for shopping cart session activation*@
+@using Microsoft.AspNetCore.Http
+@using bookshop.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,16 +30,42 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
+
+                        @* later add roles *@
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Content management
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Genres</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Genres</a>
+
+                        @*shopping cart items list*@
+                        <li>
+                            @if (HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) != null)
+                            {
+                                <a asp-action="Index" asp-controller="Cart" class="nav-link">
+                                    @{
+                                        @*how many items are there in the session*@
+                                        var count = HttpContextAccessor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                    }
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                </a>
+                            }
                         </li>
                     </ul>
                 </div>

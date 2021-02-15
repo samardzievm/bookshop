@@ -176,3 +176,5 @@ C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\View
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Books\Delete.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Books\Index.cshtml.g.cs
 C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Books\Upsert.cshtml.g.cs
+C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Shared\_IndividualBookCard.cshtml.g.cs
+C:\Users\Martin_2\Desktop\Projects\bookshop\bookshop\obj\Debug\net5.0\Razor\Views\Home\Details.cshtml.g.cs

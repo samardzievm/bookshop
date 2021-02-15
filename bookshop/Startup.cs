@@ -25,11 +25,22 @@ namespace bookshop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // database
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")
                     )
                 );
+
+            // session 
+            services.AddHttpContextAccessor();
+            services.AddSession(Options =>
+            {
+                Options.IdleTimeout = TimeSpan.FromMinutes(10); // let the session lasts 10 minutes
+                Options.Cookie.HttpOnly = true;
+                Options.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -52,6 +63,8 @@ namespace bookshop
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession(); // session 
 
             app.UseEndpoints(endpoints =>
             {

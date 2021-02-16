@@ -2,6 +2,7 @@ using bookshop.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,11 @@ namespace bookshop
                 Options.Cookie.IsEssential = true;
             });
 
+            // Identity activation (section 6-1)
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders().AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>(); // this line will make change to our database tables, will add Identity tables
+
             services.AddControllersWithViews();
         }
 
@@ -62,12 +68,16 @@ namespace bookshop
 
             app.UseRouting();
 
+            app.UseAuthentication(); // activation of Identity, this line must come before Authorization!!!
+
             app.UseAuthorization();
 
             app.UseSession(); // session 
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages(); // Because Identity uses Razor pages instead of MVC 
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

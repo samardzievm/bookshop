@@ -10,13 +10,15 @@ using bookshop.Models;
 using Microsoft.AspNetCore.Hosting;
 using bookshop.Models.ViewModels;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace bookshop.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private readonly IWebHostEnvironment _webHostEnvironment; // to access the WC.cs class where we store variables (section 4-12) 
+        private readonly IWebHostEnvironment _webHostEnvironment; // to access the WC.cs class where we store variables  
         public BooksController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
@@ -28,12 +30,10 @@ namespace bookshop.Controllers
             return View(objList);
         }
 
-        // GET: Upsert  /* upsert is create and edit in the same action */
+        // GET: Upsert  /* upsert is create and edit functionality in the same action */
         public IActionResult Upsert(int? id) // ? is for create/add functionality (because we are not passing id parameter, id is for edit functionality)
         {
-            // display all of the categories in a dropdown input type in the View
-
-            /* Right approach with ViewModels */
+            // display all of the authors and genres in a dropdown input type in the View
 
             BookVM bookVM = new BookVM()
             {

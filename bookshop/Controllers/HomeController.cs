@@ -66,7 +66,6 @@ namespace bookshop.Controllers
         }
 
         // shopping cart session
-        ///*
         [HttpPost, ActionName("Details")]
         public ActionResult DetailsPost(int id)
         {
@@ -84,10 +83,10 @@ namespace bookshop.Controllers
                 ProductId = id
             });
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
-            return RedirectToAction(nameof(Index)); // nameof is better practice instead of "{ActionName}"
+
+            return RedirectToAction(nameof(Index));
         }
-        //*/
-        ///*
+
         public ActionResult RemoveFromCart(int id)
         {
             // listing items session, retreive all the items
@@ -107,12 +106,7 @@ namespace bookshop.Controllers
             }
 
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
-            return RedirectToAction(nameof(Index)); // nameof is better practice instead of "{ActionName}"
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -120,6 +114,5 @@ namespace bookshop.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //*/
     }
 }

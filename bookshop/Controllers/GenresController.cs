@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using bookshop.Data;
 using bookshop.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace bookshop.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _db;

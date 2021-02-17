@@ -63,7 +63,10 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-6 col-md-3 offset-md-9">
-                                    <p class="h4 pt-1 pb-1">Total price: @Model.Sum(i => i.Price) &euro; </p>
+                                    @{ 
+                                        var sum = @Model.Sum(i => i.Price).ToString("0.00"); // only 2 decimals
+                                    }
+                                    <p class="h4 pt-1 pb-1">Total price:  @sum&euro; </p>
                                     <button type="submit" class="btn btn-success form-control ">
                                         <span>Continue</span>
                                     </button>

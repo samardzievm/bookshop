@@ -15,12 +15,10 @@
     <link rel="stylesheet" href="~/fontawesome/css/all.min.css">
     @* data tables CDN*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-    @*<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">*@
-
     @* summernote CDN *@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -34,7 +32,6 @@
                     <partial name="_LoginPartial" /> @*Display the Register and Login functionality*@
                 <ul class="navbar-nav flex-grow-1">
 
-                    @* later add roles *@
                     @if (User.IsInRole(WC.AdminRole)) @*Only display the route if the user is an Admin *@
                     {
                         <li class="nav-item dropdown">
@@ -84,16 +81,13 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - bookshop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - bookshop
         </div>
     </footer>
-
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
 
     @* data table CDN *@
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
@@ -105,5 +99,6 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

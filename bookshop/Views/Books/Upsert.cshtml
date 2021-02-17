@@ -7,7 +7,7 @@
 <form method="POST" enctype="multipart/form-data">
     @*enctype is dealing with the images*@
 
-    @if (Model.Book.Id != 0)@* the condition will detect if the action is create or edit *@
+    @if (Model.Book.Id != 0)@* the condition will detect if the action is to create or edit *@
     {
         title = "Edit Book";
         <input asp-for="Book.Id" hidden />
@@ -30,8 +30,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Book.Price"></label>
-
+                        <label asp-for="Book.Price"></label> (&euro;)
                     </div>
                     <div class="col-8">
                         <input asp-for="Book.Price" class="form-control" />
@@ -43,9 +42,8 @@
                     <div class="col-4">
                         <label asp-for="Book.ShortDescription"></label>
                     </div>
-                    @* make a modification here. Change Description to ShortDesc *@
                     <div class="col-8">
-                        <input asp-for="Book.ShortDescription" class="form-control" />
+                        <textarea asp-for="Book.ShortDescription" class="form-control" > </textarea>
                         <span asp-validation-for="Book.ShortDescription" class="text-danger"></span>
                     </div>
                 </div>
